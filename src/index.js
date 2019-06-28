@@ -143,7 +143,7 @@ export default class extends PureComponent {
       this.lazy.setRadius(this.props.lazyRadius * window.devicePixelRatio);
     }
 
-    if (prevProps.saveData !== this.props.saveData) {
+    if (this.props.saveData && prevProps.saveData !== this.props.saveData) {
       this.loadSaveData(this.props.saveData);
     }
 
