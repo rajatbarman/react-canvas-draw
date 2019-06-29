@@ -241,7 +241,7 @@ export default class extends PureComponent {
     // Simulate live-drawing of the loaded lines
     // TODO use a generator
     let curTime = 0;
-    let timeoutGap = this.props.loadTimeOffset;
+    let timeoutGap = immediate ? 0 : this.props.loadTimeOffset;
 
     lines.forEach(line => {
       const { points, brushColor, brushRadius } = line;
