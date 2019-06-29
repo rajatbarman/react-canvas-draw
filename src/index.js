@@ -232,7 +232,7 @@ export default class extends PureComponent {
       */
       fn();
     }
-    setTimeout(() => {
+    return setTimeout(() => {
       fn();
     }, interval); 
   };
@@ -250,11 +250,13 @@ export default class extends PureComponent {
         curTime += timeoutGap;
         
         this.withSetTimeout(() => {
-          this.drawPoints({
-            points: points.slice(0, i + 1),
-            brushColor,
-            brushRadius
-          });
+          if (points.length) {
+            this.drawPoints({
+              points: points.slice(0, i + 1),
+              brushColor,
+              brushRadius
+            });
+          }
         }, curTime, immediate);
       }
 
