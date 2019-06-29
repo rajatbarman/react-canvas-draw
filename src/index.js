@@ -225,32 +225,45 @@ export default class extends PureComponent {
     }
   };
 
+  withSetTimeout = (fn, interval, immediate) => {
+    if (immediate) {
+      /* 
+        Don't bring setTimeout in picture at all, if immediate is true 
+      */
+      fn();
+    }
+    setTimeout(() => {
+      fn();
+    }, interval); 
+  };
+
   simulateDrawingLines = ({ lines, immediate }) => {
     // Simulate live-drawing of the loaded lines
     // TODO use a generator
     let curTime = 0;
-    let timeoutGap = immediate ? 0 : this.props.loadTimeOffset;
+    let timeoutGap = this.props.loadTimeOffset;
 
     lines.forEach(line => {
       const { points, brushColor, brushRadius } = line;
 
       for (let i = 1; i < points.length; i++) {
         curTime += timeoutGap;
-        window.setTimeout(() => {
+        
+        this.withSetTimeout(() => {
           this.drawPoints({
             points: points.slice(0, i + 1),
             brushColor,
             brushRadius
           });
-        }, curTime);
+        }, curTime, immediate);
       }
 
       curTime += timeoutGap;
-      window.setTimeout(() => {
+      this.withSetTimeout(() => {
         // Save this line with its props instead of this.props
         this.points = points;
         this.saveLine({ brushColor, brushRadius });
-      }, curTime);
+      }, curTime, immediate);
     });
   };
 
