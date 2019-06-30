@@ -370,11 +370,13 @@ export default class extends PureComponent {
       this.points.push(this.lazy.brush.toObject());
 
       // Draw current points
-      this.drawPoints({
-        points: this.points,
-        brushColor: this.props.brushColor,
-        brushRadius: this.props.brushRadius
-      });
+      if (this.points.length) {
+        this.drawPoints({
+          points: this.points,
+          brushColor: this.props.brushColor,
+          brushRadius: this.props.brushRadius
+        });
+      }
     }
 
     this.mouseHasMoved = true;
