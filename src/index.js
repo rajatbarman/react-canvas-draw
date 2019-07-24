@@ -505,6 +505,9 @@ export default class extends PureComponent {
 
   drawInterface = (ctx, pointer, brush) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    if (this.props.disabled) {
+        return;
+    }
 
     // Draw brush preview
     ctx.beginPath();
