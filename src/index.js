@@ -395,8 +395,8 @@ export default class extends PureComponent {
     );
     this.ctx.temp.lineWidth = brushRadius * 2;
 
-    let p1 = points[0];
-    let p2 = points[1];
+    let p1 = points[0] || {};
+    let p2 = points[1] || {};
 
     this.ctx.temp.moveTo(p2.x, p2.y);
     this.ctx.temp.beginPath();
